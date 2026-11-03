@@ -4,6 +4,14 @@ An academic digital-logic project developed for **ENSC 252 — Fundamentals of D
 
 > **Verification status:** This repository preserves the supplied implementation and its directed testbenches. The testbenches and simulation scripts have **not been executed in ModelSim/Questa or on physical FPGA hardware as part of preparing this repository**. Features described below are source-implemented/intended behavior, not independently verified test results.
 
+## Hardware platform
+
+<p align="center">
+  <img src="media/Altera-Intel%20DE2-115%20FPGA%20development%20board.jpg" alt="Reference photograph of the Terasic DE2-115 FPGA development board" width="480" />
+</p>
+
+*Terasic DE2-115 development board (reference photograph of the target hardware; not evidence of this particular design running on the board).*
+
 ## Functional overview
 
 The vending machine models **three purchasable products**, plus product index 0 as an idle/default entry, and four user-selectable modes:
@@ -52,6 +60,7 @@ The `top.vhd` design connects the component hierarchy to the board-facing ports.
 fpga-vending-machine/
 ├── README.md
 ├── .gitignore
+├── media/             # Board reference photograph and three design diagrams
 ├── docs/
 │   ├── SYSTEM_ARCHITECTURE.md
 │   ├── FUNCTIONALITY_AND_MODES.md
@@ -77,6 +86,28 @@ The top-level entity is `top` in `src/components/top.vhd`. All source files are 
 - **`top`:** connect FPGA inputs, debouncing, the peripherals, and the supplied LCD controller hierarchy.
 
 See [System Architecture](docs/SYSTEM_ARCHITECTURE.md) and [Functionality and Modes](docs/FUNCTIONALITY_AND_MODES.md).
+
+## Design diagrams and transaction example
+
+The following diagrams summarize the documented VHDL module hierarchy and transaction control. They are **explanatory illustrations**, not ModelSim waveform captures or independent validation of FPGA operation.
+
+### Module block diagram
+
+![Module block diagram showing board inputs, vend_periph/vend_unit coordination, display path and LED feedback](media/1%20FPGA_Vending_Machine_Module_Block_Diagram.jpg)
+
+*High-level signal flow between user inputs, the vending controller, price RAM, output displays, and dispensing-state feedback. Supporting LCD and debouncer logic is supplied for integration.*
+
+### Transaction state diagram
+
+![Transaction state diagram showing IDLE, ACTIVE, and DISPENSING with completion and reset transitions](media/2%20FPGA_Vending_Machine_Transaction_State_Diagram.jpg)
+
+*Conceptual view of the primary transaction states. Additional logic handles Free-mode access, price programming, cancellation, and LED timing.*
+
+### Sample transaction sequence
+
+![Illustrative vend-mode transaction for a dollar and two quarters toward a one-dollar-thirty product, yielding twenty cents change](media/3%20FPGA_Vending_Machine_Sample_Transaction_Sequence.jpg)
+
+*Illustrative Vend-mode example: Product 2 costs $1.30; a $1.00 coin and two $0.25 coins total $1.50, resulting in $0.20 change due. This diagram is a worked example, **not** a captured simulation run or hardware measurement.*
 
 ## Simulation
 
