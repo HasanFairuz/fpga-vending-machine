@@ -1,0 +1,27 @@
+# ModelSim / Questa transient data
+work/
+transcript
+vsim.wlf
+*.wlf
+*.mpf
+*.mti
+*.log
+modelsim.ini
+
+# Quartus compilation / programming artifacts
+output_files/
+db/
+incremental_db/
+*.sof
+*.pof
+*.rpt
+*.smsg
+*.qws
+*.qdf
+*.qdb
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*.bak
